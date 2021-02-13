@@ -20,6 +20,12 @@
         }
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3.5",
+        "orchestra/testbench": "^4.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Schrosis\\BladeSQL\\Tests\\": "tests/"
+        }
     }
 }
