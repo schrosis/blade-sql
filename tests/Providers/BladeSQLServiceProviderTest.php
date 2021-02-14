@@ -28,8 +28,28 @@ class BladeSQLServiceProviderTest extends TestCase
         );
     }
 
+    public function testResolveSQLBlade()
+    {
+        $viewString = View::make('sql::BladeSQLServiceProviderTest.test-resolve')->render();
+
+        $this->assertStringContainsString(
+            'sql blade is resolved',
+            $viewString
+        );
+
+        $this->assertStringContainsString(
+            'laravel'.$this->getMainVersion(),
+            $viewString
+        );
+    }
+
     protected function getPackageProviders($app)
     {
         return [BladeSQLServiceProvider::class];
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        $this->loadStubSQL($app);
     }
 }

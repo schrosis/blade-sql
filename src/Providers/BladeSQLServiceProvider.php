@@ -11,6 +11,7 @@ class BladeSQLServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->setUpConfig();
+        $this->registerVIews();
     }
 
     private function setUpConfig()
@@ -20,6 +21,11 @@ class BladeSQLServiceProvider extends ServiceProvider
         ]);
 
         $this->mergeConfigFrom(self::CONFIG_PATH, 'blade-sql');
+    }
+
+    private function registerVIews()
+    {
+        $this->loadViewsFrom(Config::get('blade-sql.dir'), 'sql');
     }
 
     private function getPublishConfigPath()
