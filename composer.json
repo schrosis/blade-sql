@@ -27,5 +27,12 @@
         "psr-4": {
             "Schrosis\\BladeSQL\\Tests\\": "tests/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Schrosis\\BladeSQL\\Providers\\BladeSQLServiceProvider"
+            }
+        }
     }
 }
