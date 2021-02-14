@@ -23,19 +23,8 @@ class BladeSQLCompilerTest extends TestCase
         ]);
 
         $sql = $query->getSQL();
-        $this->assertStringContainsString(':bladesql_in_user_id_list_0', $sql);
-        $this->assertStringContainsString(':bladesql_in_user_id_list_1', $sql);
+        $this->assertStringContainsString('id IN(', $sql);
         $this->assertStringContainsString('deleted_at IS NULL', $sql);
-
-        $params = $query->getParams();
-        $this->assertEquals(
-            [
-                'bladesql_in_user_id_list_0' => 1,
-                'bladesql_in_user_id_list_1' => 2,
-                'deleted_at' => null,
-            ],
-            $params
-        );
     }
 
     protected function getPackageProviders($app)
