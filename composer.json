@@ -32,6 +32,9 @@
         "laravel": {
             "providers": [
                 "Schrosis\\BladeSQL\\Providers\\BladeSQLServiceProvider"
+            ],
+            "aliases": {
+                "BladeSQL": "Schrosis\\BladeSQL\\Facades\\BladeSQL"
             }
         }
     }
