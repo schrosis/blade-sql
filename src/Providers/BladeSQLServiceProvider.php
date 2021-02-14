@@ -5,11 +5,20 @@ namespace Schrosis\BladeSQL\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use Schrosis\BladeSQL\BladeSQL\BladeSQLCompiler;
+use Schrosis\BladeSQL\BladeSQL\BladeSQLExecutor;
+use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
+use Schrosis\BladeSQL\BladeSQL\Contracts\Executor;
 use Schrosis\BladeSQL\BladeSQL\View\InDirective;
 
 class BladeSQLServiceProvider extends ServiceProvider
 {
     public const CONFIG_PATH = __DIR__.'/../config/blade-sql.php';
+
+    public $bindings = [
+        Executor::class => BladeSQLExecutor::class,
+        Compiler::class => BladeSQLCompiler::class,
+    ];
 
     public function boot()
     {
