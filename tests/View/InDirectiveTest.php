@@ -10,14 +10,14 @@ class InDirectiveTest extends TestCase
 {
     public function testName()
     {
-        $this->assertEquals('IN', InDirective::NAME);
+        $this->assertSame('IN', InDirective::NAME);
     }
 
     public function testProcess()
     {
         $processString = InDirective::process('key');
 
-        $this->assertEquals(
+        $this->assertSame(
             "<?= ".InDirective::class."::compile('key', \$key) ?>",
             $processString
         );
@@ -26,10 +26,10 @@ class InDirectiveTest extends TestCase
     public function testCompile()
     {
         $oneElement = InDirective::compile('key', ['value']);
-        $this->assertEquals('= :bladesql_in_key_0', $oneElement);
+        $this->assertSame('= :bladesql_in_key_0', $oneElement);
 
         $manyElement = InDirective::compile('key', ['value1', 'value2']);
-        $this->assertEquals('IN(:bladesql_in_key_0, :bladesql_in_key_1)', $manyElement);
+        $this->assertSame('IN(:bladesql_in_key_0, :bladesql_in_key_1)', $manyElement);
     }
 
     public function testThrowExceptionWhenEmptyArray()

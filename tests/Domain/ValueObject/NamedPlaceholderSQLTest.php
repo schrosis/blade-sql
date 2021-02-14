@@ -10,6 +10,6 @@ class NamedPlaceholderSQLTest extends TestCase
     public function testGetValue()
     {
         $sql = new NamedPlaceholderSQL('sql string');
-        $this->assertEquals('sql string', $sql->getValue());
+        $this->assertSame('sql string', $sql->getValue());
     }
 }

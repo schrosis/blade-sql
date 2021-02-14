@@ -25,12 +25,12 @@ class CompileActionTest extends TestCase
 
         $query = $useCase($view, $params);
 
-        $this->assertEquals(
+        $this->assertSame(
             $view->with($params)->render(),
             $query->getSQL()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'bladesql_in_user_id_list_0' => 1,
                 'bladesql_in_user_id_list_1' => 2,

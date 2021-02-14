@@ -14,7 +14,7 @@ class NamedPlaceholderSQLParametersTest extends TestCase
             'question mark param value',
         ]);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'named_param' => 1,
                 'question mark param value',

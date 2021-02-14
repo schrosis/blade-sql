@@ -17,7 +17,7 @@ class NamedPlaceholderQueryTest extends TestCase
             new NamedPlaceholderSQLParameters([])
         );
 
-        $this->assertEquals($sql, $query->getNamedPlaceholderSQL());
+        $this->assertSame($sql, $query->getNamedPlaceholderSQL());
     }
 
     public function testGetSQL()
@@ -28,7 +28,7 @@ class NamedPlaceholderQueryTest extends TestCase
             new NamedPlaceholderSQLParameters([])
         );
 
-        $this->assertEquals('sql string', $query->getSQL());
+        $this->assertSame('sql string', $query->getSQL());
     }
 
     public function testGetNamedPlaceholderSQLParameters()
@@ -42,7 +42,7 @@ class NamedPlaceholderQueryTest extends TestCase
             $params
         );
 
-        $this->assertEquals($params, $query->getNamedPlaceholderSQLParameters());
+        $this->assertSame($params, $query->getNamedPlaceholderSQLParameters());
     }
 
     public function testGetParams()
@@ -56,7 +56,7 @@ class NamedPlaceholderQueryTest extends TestCase
             $params
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'named_param' => 1,
                 'question mark param value',

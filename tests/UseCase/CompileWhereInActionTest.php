@@ -12,7 +12,7 @@ class CompileWhereInActionTest extends TestCase
     {
         $useCase = new CompileWhereInAction();
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'bladesql_in_key_0' => 'a',
                 'bladesql_in_key_1' => 1,
@@ -27,7 +27,7 @@ class CompileWhereInActionTest extends TestCase
     {
         $useCase = new CompileWhereInAction();
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 ':bladesql_in_key_0',
                 ':bladesql_in_key_1',
