@@ -1,6 +1,6 @@
 <?php
 
-namespace Schrosis\BladeSQL\Tests\View;
+namespace Schrosis\BladeSQL\Tests\Unit\View;
 
 use RuntimeException;
 use Schrosis\BladeSQL\BladeSQL\View\InDirective;

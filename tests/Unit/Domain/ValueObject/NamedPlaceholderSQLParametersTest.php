@@ -1,6 +1,6 @@
 <?php
 
-namespace Schrosis\BladeSQL\Tests\Domain\ValueObject;
+namespace Schrosis\BladeSQL\Tests\Unit\Domain\ValueObject;
 
 use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderSQLParameters;
 use Schrosis\BladeSQL\Tests\TestCase;

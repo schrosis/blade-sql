@@ -1,9 +1,10 @@
 <?php
 
-namespace Schrosis\BladeSQL\Tests;
+namespace Schrosis\BladeSQL\Tests\Unit;
 
 use Schrosis\BladeSQL\BladeSQL\BladeSQLExecutor;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
+use Schrosis\BladeSQL\Tests\TestCase;
 
 class BladeSQLExecutorTest extends TestCase
 {

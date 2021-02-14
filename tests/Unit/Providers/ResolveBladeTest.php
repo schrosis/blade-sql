@@ -1,6 +1,6 @@
 <?php
 
-namespace Schrosis\BladeSQL\Tests\Providers;
+namespace Schrosis\BladeSQL\Tests\Unit\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;

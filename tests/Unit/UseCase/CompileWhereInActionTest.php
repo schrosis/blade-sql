@@ -1,6 +1,6 @@
 <?php
 
-namespace Schrosis\BladeSQL\Tests\UseCase;
+namespace Schrosis\BladeSQL\Tests\Unit\UseCase;
 
 use RuntimeException;
 use Schrosis\BladeSQL\BladeSQL\UseCase\CompileWhereInAction;

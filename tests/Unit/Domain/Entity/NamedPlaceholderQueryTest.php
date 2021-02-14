@@ -1,6 +1,6 @@
 <?php
 
-namespace Schrosis\BladeSQL\Tests\Domain\Entity;
+namespace Schrosis\BladeSQL\Tests\Unit\Domain\Entity;
 
 use Schrosis\BladeSQL\BladeSQL\Domain\Entity\NamedPlaceholderQuery;
 use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderSQL;

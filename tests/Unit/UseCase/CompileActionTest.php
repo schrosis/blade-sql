@@ -1,6 +1,6 @@
 <?php
 
-namespace Schrosis\BladeSQL\Tests\UseCase;
+namespace Schrosis\BladeSQL\Tests\Unit\UseCase;
 
 use Illuminate\Support\Facades\View;
 use RuntimeException;

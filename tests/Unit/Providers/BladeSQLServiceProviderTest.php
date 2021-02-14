@@ -1,6 +1,6 @@
 <?php
 
-namespace Schrosis\BladeSQL\Tests\Providers;
+namespace Schrosis\BladeSQL\Tests\Unit\Providers;
 
 use Schrosis\BladeSQL\Providers\BladeSQLServiceProvider;
 use Schrosis\BladeSQL\Tests\TestCase;

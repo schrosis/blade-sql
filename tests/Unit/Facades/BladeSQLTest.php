@@ -1,6 +1,6 @@
 <?php
 
-namespace Schrosis\BladeSQL\Tests\Facades;
+namespace Schrosis\BladeSQL\Tests\Unit\Facades;
 
 use ReflectionMethod;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Executor;
