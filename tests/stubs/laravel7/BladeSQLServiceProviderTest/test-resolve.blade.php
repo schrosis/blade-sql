@@ -1,2 +1,2 @@
-laravel6
+laravel7
 sql blade is resolved
