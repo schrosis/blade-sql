@@ -3,7 +3,7 @@
 namespace Schrosis\BladeSQL\Tests\Unit\View;
 
 use RuntimeException;
-use Schrosis\BladeSQL\BladeSQL\View\InDirective;
+use Schrosis\BladeSQL\BladeSQL\View\Directives\InDirective;
 use Schrosis\BladeSQL\Tests\TestCase;
 
 class InDirectiveTest extends TestCase

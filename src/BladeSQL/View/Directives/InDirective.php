@@ -1,6 +1,6 @@
 <?php
 
-namespace Schrosis\BladeSQL\BladeSQL\View;
+namespace Schrosis\BladeSQL\BladeSQL\View\Directives;
 
 use RuntimeException;
 use Schrosis\BladeSQL\BladeSQL\UseCase\CompileWhereInAction;

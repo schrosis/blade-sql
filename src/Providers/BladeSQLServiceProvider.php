@@ -9,7 +9,7 @@ use Schrosis\BladeSQL\BladeSQL\BladeSQLCompiler;
 use Schrosis\BladeSQL\BladeSQL\BladeSQLExecutor;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Executor;
-use Schrosis\BladeSQL\BladeSQL\View\InDirective;
+use Schrosis\BladeSQL\BladeSQL\View\Directives\InDirective;
 
 class BladeSQLServiceProvider extends ServiceProvider
 {
