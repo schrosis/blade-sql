@@ -48,9 +48,4 @@ class BladeSQLServiceProviderTest extends TestCase
     {
         return [BladeSQLServiceProvider::class];
     }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        $this->loadStubSQL($app);
-    }
 }
