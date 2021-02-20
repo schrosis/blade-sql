@@ -18,7 +18,7 @@ class InDirectiveTest extends TestCase
         $processString = InDirective::process('key');
 
         $this->assertSame(
-            "<?= ".InDirective::class."::compile('key', \$key) ?>",
+            "<?= ".InDirective::class."::compile('key', \$key) ?>\n",
             $processString
         );
     }

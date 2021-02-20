@@ -16,7 +16,7 @@ class InDirective
 
     public static function process(string $key): string
     {
-        return sprintf("<?= %s::%s('%s', $%s) ?>", self::class, 'compile', $key, $key);
+        return sprintf("<?= %s::%s('%s', $%s) ?>\n", self::class, 'compile', $key, $key);
     }
 
     public static function compile(string $key, array $values): string
