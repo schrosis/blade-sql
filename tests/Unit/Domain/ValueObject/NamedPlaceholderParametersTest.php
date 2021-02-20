@@ -10,14 +10,14 @@ class NamedPlaceholderParametersTest extends TestCase
     public function testGetValue()
     {
         $params = new NamedPlaceholderParameters([
-            'named_param' => 1,
-            'question mark param value',
+            'named_param1' => 1,
+            'named_param2' => 2,
         ]);
 
         $this->assertSame(
             [
-                'named_param' => 1,
-                'question mark param value',
+                'named_param1' => 1,
+                'named_param2' => 2,
             ],
             $params->getValue()
         );
