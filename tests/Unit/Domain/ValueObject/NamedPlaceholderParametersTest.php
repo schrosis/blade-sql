@@ -2,14 +2,14 @@
 
 namespace Schrosis\BladeSQL\Tests\Unit\Domain\ValueObject;
 
-use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderSQLParameters;
+use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderParameters;
 use Schrosis\BladeSQL\Tests\TestCase;
 
-class NamedPlaceholderSQLParametersTest extends TestCase
+class NamedPlaceholderParametersTest extends TestCase
 {
     public function testGetValue()
     {
-        $params = new NamedPlaceholderSQLParameters([
+        $params = new NamedPlaceholderParameters([
             'named_param' => 1,
             'question mark param value',
         ]);

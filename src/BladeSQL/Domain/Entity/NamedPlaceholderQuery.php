@@ -3,7 +3,7 @@
 namespace Schrosis\BladeSQL\BladeSQL\Domain\Entity;
 
 use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderSQL;
-use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderSQLParameters;
+use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderParameters;
 
 class NamedPlaceholderQuery implements Query
 {
@@ -17,13 +17,13 @@ class NamedPlaceholderQuery implements Query
     /**
      * named placeholder SQL parameters
      *
-     * @var NamedPlaceholderSQLParameters
+     * @var NamedPlaceholderParameters
      */
     private $params;
 
     public function __construct(
         NamedPlaceholderSQL $sql,
-        NamedPlaceholderSQLParameters $params
+        NamedPlaceholderParameters $params
     ) {
         $this->sql = $sql;
         $this->params = $params;
@@ -39,7 +39,7 @@ class NamedPlaceholderQuery implements Query
         return $this->sql->getValue();
     }
 
-    public function getNamedPlaceholderSQLParameters(): NamedPlaceholderSQLParameters
+    public function getNamedPlaceholderParameters(): NamedPlaceholderParameters
     {
         return $this->params;
     }

@@ -6,7 +6,7 @@ use Illuminate\Contracts\View\View;
 use RuntimeException;
 use Schrosis\BladeSQL\BladeSQL\Domain\Entity\NamedPlaceholderQuery;
 use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderSQL;
-use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderSQLParameters;
+use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderParameters;
 
 class CompileAction
 {
@@ -35,7 +35,7 @@ class CompileAction
         );
     }
 
-    protected function compileParams(array $params): NamedPlaceholderSQLParameters
+    protected function compileParams(array $params): NamedPlaceholderParameters
     {
         $compiledParams = [];
         foreach ($params as $key => $value) {
@@ -51,6 +51,6 @@ class CompileAction
                     throw new RuntimeException('Only null or scalar or scalar array are allowed');
             }
         }
-        return new NamedPlaceholderSQLParameters($compiledParams);
+        return new NamedPlaceholderParameters($compiledParams);
     }
 }

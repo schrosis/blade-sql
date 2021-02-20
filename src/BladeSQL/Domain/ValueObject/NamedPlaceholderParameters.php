@@ -2,7 +2,7 @@
 
 namespace Schrosis\BladeSQL\BladeSQL\Domain\ValueObject;
 
-class NamedPlaceholderSQLParameters
+class NamedPlaceholderParameters
 {
     private $value;
 

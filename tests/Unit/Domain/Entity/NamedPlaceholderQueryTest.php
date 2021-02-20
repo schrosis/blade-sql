@@ -4,7 +4,7 @@ namespace Schrosis\BladeSQL\Tests\Unit\Domain\Entity;
 
 use Schrosis\BladeSQL\BladeSQL\Domain\Entity\NamedPlaceholderQuery;
 use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderSQL;
-use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderSQLParameters;
+use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderParameters;
 use Schrosis\BladeSQL\Tests\TestCase;
 
 class NamedPlaceholderQueryTest extends TestCase
@@ -14,7 +14,7 @@ class NamedPlaceholderQueryTest extends TestCase
         $sql = new NamedPlaceholderSQL('sql string');
         $query = new NamedPlaceholderQuery(
             $sql,
-            new NamedPlaceholderSQLParameters([])
+            new NamedPlaceholderParameters([])
         );
 
         $this->assertSame($sql, $query->getNamedPlaceholderSQL());
@@ -25,15 +25,15 @@ class NamedPlaceholderQueryTest extends TestCase
         $sql = new NamedPlaceholderSQL('sql string');
         $query = new NamedPlaceholderQuery(
             $sql,
-            new NamedPlaceholderSQLParameters([])
+            new NamedPlaceholderParameters([])
         );
 
         $this->assertSame('sql string', $query->getSQL());
     }
 
-    public function testGetNamedPlaceholderSQLParameters()
+    public function testGetNamedPlaceholderParameters()
     {
-        $params = new NamedPlaceholderSQLParameters([
+        $params = new NamedPlaceholderParameters([
             'named_param' => 1,
             'question mark param value',
         ]);
@@ -42,12 +42,12 @@ class NamedPlaceholderQueryTest extends TestCase
             $params
         );
 
-        $this->assertSame($params, $query->getNamedPlaceholderSQLParameters());
+        $this->assertSame($params, $query->getNamedPlaceholderParameters());
     }
 
     public function testGetParams()
     {
-        $params = new NamedPlaceholderSQLParameters([
+        $params = new NamedPlaceholderParameters([
             'named_param' => 1,
             'question mark param value',
         ]);
