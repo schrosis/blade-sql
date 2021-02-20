@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\View;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
 use Schrosis\BladeSQL\BladeSQL\Domain\Entity\Query;
 use Schrosis\BladeSQL\BladeSQL\UseCase\CompileAction;
+use Schrosis\BladeSQL\BladeSQL\UseCase\ConvertNamedToQuestionAction;
 
 class BladeSQLCompiler implements Compiler
 {
@@ -13,10 +14,15 @@ class BladeSQLCompiler implements Compiler
      * @var CompileAction
      */
     protected $compileAction;
+    /**
+     * @var ConvertNamedToQuestionAction
+     */
+    protected $convertAction;
 
-    public function __construct(CompileAction $compileAction)
+    public function __construct(CompileAction $compileAction, ConvertNamedToQuestionAction $convertAction)
     {
         $this->compileAction = $compileAction;
+        $this->convertAction = $convertAction;
     }
 
     public function compile(string $blade, array $params = []): Query
@@ -26,6 +32,6 @@ class BladeSQLCompiler implements Compiler
             $params
         );
 
-        return $namedPlaceholderQuery;
+        return $this->convertAction->__invoke($namedPlaceholderQuery);
     }
 }
