@@ -3,23 +3,12 @@
 namespace Schrosis\BladeSQL\BladeSQL\UseCase;
 
 use Illuminate\Contracts\View\View;
-use RuntimeException;
 use Schrosis\BladeSQL\BladeSQL\Domain\Entity\NamedPlaceholderQuery;
 use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderSQL;
 use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderParameters;
 
 class CompileAction
 {
-    /**
-     * @var CompileWhereInAction
-     */
-    private $compileWhereInAction;
-
-    public function __construct(CompileWhereInAction $compileWhereInAction)
-    {
-        $this->compileWhereInAction = $compileWhereInAction;
-    }
-
     public function __invoke(View $view, array $params): NamedPlaceholderQuery
     {
         $__bladesqlparams = new NamedPlaceholderParameters($params);
