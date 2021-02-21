@@ -10,6 +10,7 @@ use Schrosis\BladeSQL\BladeSQL\BladeSQLExecutor;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Executor;
 use Schrosis\BladeSQL\BladeSQL\View\Directives\InDirective;
+use Schrosis\BladeSQL\BladeSQL\View\Directives\LikeDirective;
 
 class BladeSQLServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,7 @@ class BladeSQLServiceProvider extends ServiceProvider
 
         $prefix = Config::get('blade-sql.prefix');
         Blade::directive($prefix.InDirective::NAME, [InDirective::class, 'process']);
+        Blade::directive($prefix.LikeDirective::NAME, [LikeDirective::class, 'process']);
     }
 
     private function getPublishConfigPath()

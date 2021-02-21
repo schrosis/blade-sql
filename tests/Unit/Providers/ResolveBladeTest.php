@@ -30,6 +30,11 @@ class ResoleveBladeTest extends TestCase
         $this->assertArrayHasKey('IN', Blade::getCustomDirectives());
     }
 
+    public function testResolveLikeDirective()
+    {
+        $this->assertArrayHasKey('LIKE', Blade::getCustomDirectives());
+    }
+
     protected function getPackageProviders($app)
     {
         return [BladeSQLServiceProvider::class];
