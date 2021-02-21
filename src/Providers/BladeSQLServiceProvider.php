@@ -15,6 +15,7 @@ use Schrosis\BladeSQL\BladeSQL\View\Directives\LikeDirective;
 class BladeSQLServiceProvider extends ServiceProvider
 {
     public const CONFIG_PATH = __DIR__.'/../config/blade-sql.php';
+    public const VIEWS_DIR = __DIR__.'/../views';
 
     public $bindings = [
         Executor::class => BladeSQLExecutor::class,
@@ -38,11 +39,18 @@ class BladeSQLServiceProvider extends ServiceProvider
 
     private function registerVIews()
     {
+        $this->loadViewsFrom(self::VIEWS_DIR, 'BladeSQL');
         $this->loadViewsFrom(Config::get('blade-sql.dir'), 'sql');
 
         $prefix = Config::get('blade-sql.prefix');
+
         Blade::directive($prefix.InDirective::NAME, [InDirective::class, 'process']);
         Blade::directive($prefix.LikeDirective::NAME, [LikeDirective::class, 'process']);
+
+        $aliasComponentMethod = version_compare(app()->version(), '7', '>=')
+            ? 'aliasComponent' : 'component';
+
+        ['Blade', $aliasComponentMethod]('BladeSQL::components.trim', $prefix.'trim');
     }
 
     private function getPublishConfigPath()
