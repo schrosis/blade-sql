@@ -22,4 +22,22 @@ class NamedPlaceholderParametersTest extends TestCase
             $params->getValue()
         );
     }
+
+    public function testSetValue()
+    {
+        $params = new NamedPlaceholderParameters([
+            'named_param1' => 1,
+        ]);
+
+        $params->setValue('named_param2', 2);
+
+        $this->assertSame(
+            [
+                'named_param1' => 1,
+                'named_param2' => 2,
+            ],
+            $params->getValue()
+        );
+
+    }
 }

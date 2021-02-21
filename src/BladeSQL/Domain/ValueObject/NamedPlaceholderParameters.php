@@ -15,4 +15,10 @@ class NamedPlaceholderParameters
     {
         return $this->value;
     }
+
+    public function setValue(string $key, $value): self
+    {
+        $this->value[$key] = $value;
+        return $this;
+    }
 }
