@@ -12,15 +12,10 @@ class ResoleveBladeTest extends TestCase
 
     public function testResolveSQLBlade()
     {
-        $viewString = View::make('sql::unit.test-resolve')->render();
+        $viewString = View::make('sql::test-resolve')->render();
 
         $this->assertStringContainsString(
             'sql blade is resolved',
-            $viewString
-        );
-
-        $this->assertStringContainsString(
-            'laravel'.$this->getMainVersion(),
             $viewString
         );
     }

@@ -9,11 +9,6 @@ class TestCase extends TestbenchTestCase
 {
     protected function loadStubSQL(\Illuminate\Foundation\Application $app)
     {
-        $app['config']->set('blade-sql.dir', __DIR__.'/stubs/laravel'.$this->getMainVersion());
-    }
-
-    protected function getMainVersion()
-    {
-        return explode('.', App::version())[0];
+        $app['config']->set('blade-sql.dir', __DIR__.'/stubs/unit/views');
     }
 }
