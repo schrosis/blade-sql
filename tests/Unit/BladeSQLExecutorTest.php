@@ -4,6 +4,7 @@ namespace Schrosis\BladeSQL\Tests\Unit;
 
 use Schrosis\BladeSQL\BladeSQL\BladeSQLExecutor;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
+use Schrosis\BladeSQL\BladeSQL\UseCase\LikeEscapeAction;
 use Schrosis\BladeSQL\Tests\TestCase;
 
 class BladeSQLExecutorTest extends TestCase
@@ -23,5 +24,17 @@ class BladeSQLExecutorTest extends TestCase
 
         $executor = $this->app->make(BladeSQLExecutor::class);
         $executor->compile(...$args);
+    }
+
+    public function testLikeEscape()
+    {
+        $this->mock(Compiler::class);
+        $this->mock(LikeEscapeAction::class)
+            ->shouldReceive('__invoke')
+            ->withArgs(['keyword'])
+            ->andReturn('keyword');
+
+        $executor = $this->app->make(BladeSQLExecutor::class);
+        $executor->likeEscape('keyword');
     }
 }
