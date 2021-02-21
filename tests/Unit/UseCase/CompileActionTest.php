@@ -5,6 +5,7 @@ namespace Schrosis\BladeSQL\Tests\Unit\UseCase;
 use Illuminate\Contracts\View\View;
 use Mockery\MockInterface;
 use RuntimeException;
+use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderParameters;
 use Schrosis\BladeSQL\BladeSQL\UseCase\CompileAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\CompileWhereInAction;
 use Schrosis\BladeSQL\Tests\TestCase;
@@ -27,8 +28,10 @@ class CompileActionTest extends TestCase
         ];
 
         $this->mock(View::class, function (MockInterface $mock) use ($params) {
+            $arg = $params;
+            $arg['__bladesqlparams'] = new NamedPlaceholderParameters($params);
             $mock->shouldReceive('with')
-                ->withArgs([$params])
+                ->withArgs([$arg])
                 ->andReturn($mock);
             $mock->shouldReceive('render')
                 ->andReturn('compiled string');
@@ -43,27 +46,5 @@ class CompileActionTest extends TestCase
         );
 
         $this->assertIsArray($query->getParams());
-    }
-
-    public function testThrowExceptionWhenNotArrayOrScalarValue()
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Only null or scalar or scalar array are allowed');
-
-        $this->mock(CompileWhereInAction::class)
-            ->shouldReceive('__invoke');
-
-        $useCase = $this->app->make(CompileAction::class);
-
-        $this->mock(View::class, function (MockInterface $mock) {
-            $mock->shouldReceive('with')->andReturn($mock);
-            $mock->shouldReceive('render')->andReturn('');
-        });
-        $view = $this->app->make(View::class);
-
-        $useCase(
-            $view,
-            ['other_param' => (object)['not null, not scalar, not scalar array']]
-        );
     }
 }

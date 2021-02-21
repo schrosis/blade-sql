@@ -3,6 +3,7 @@
 namespace Schrosis\BladeSQL\BladeSQL\View\Directives;
 
 use RuntimeException;
+use Schrosis\BladeSQL\BladeSQL\Domain\ValueObject\NamedPlaceholderParameters;
 use Schrosis\BladeSQL\BladeSQL\UseCase\CompileWhereInAction;
 
 class InDirective
@@ -16,18 +17,30 @@ class InDirective
 
     public static function process(string $key): string
     {
-        return sprintf("<?= %s::%s('%s', $%s) ?>\n", self::class, 'compile', $key, $key);
+        return sprintf(
+            "<?= %s::%s(%s, '%s', $%s) ?>\n",
+            self::class,
+            'compile',
+            '$__bladesqlparams',
+            $key,
+            $key
+        );
     }
 
-    public static function compile(string $key, array $values): string
+    public static function compile(NamedPlaceholderParameters $params, string $key, array $values): string
     {
         if (count($values) === 0) {
             throw new RuntimeException(
                 'The number of elements in the in clause is zero. Enclose it in an if directive'
             );
         }
-        $keys = static::getCompileWhereInAction()
-            ->forNamedPlaceholder($key, $values);
+        $compileWhereInAction = static::getCompileWhereInAction();
+
+        foreach ($compileWhereInAction($key, $values) as $k => $v) {
+            $params->setValue($k, $v);
+        }
+
+        $keys = $compileWhereInAction->forNamedPlaceholder($key, $values);
         return count($values) === 1
             ? sprintf('= %s', $keys[0])
             : sprintf('IN(%s)', implode(', ', $keys));

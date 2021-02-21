@@ -22,9 +22,14 @@ class CompileAction
 
     public function __invoke(View $view, array $params): NamedPlaceholderQuery
     {
+        $__bladesqlparams = new NamedPlaceholderParameters($params);
+        $params['__bladesqlparams'] = $__bladesqlparams;
+
+        $sql = $this->compileSQL($view, $params);
+
         return new NamedPlaceholderQuery(
-            $this->compileSQL($view, $params),
-            $this->compileParams($params)
+            $sql,
+            $__bladesqlparams
         );
     }
 
@@ -33,24 +38,5 @@ class CompileAction
         return new NamedPlaceholderSQL(
             $view->with($params)->render()
         );
-    }
-
-    protected function compileParams(array $params): NamedPlaceholderParameters
-    {
-        $compiledParams = [];
-        foreach ($params as $key => $value) {
-            switch (true) {
-                case is_scalar($value):
-                case is_null($value):
-                    $compiledParams[$key] = $value;
-                    break;
-                case is_array($value):
-                    $compiledParams += $this->compileWhereInAction->__invoke($key, $value);
-                    break;
-                default:
-                    throw new RuntimeException('Only null or scalar or scalar array are allowed');
-            }
-        }
-        return new NamedPlaceholderParameters($compiledParams);
     }
 }
