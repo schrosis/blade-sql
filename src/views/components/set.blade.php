@@ -1,0 +1,3 @@
+@trim(['suffixOverrides' => ','])
+{!! $slot !!}
+@endtrim
