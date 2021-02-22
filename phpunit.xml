@@ -18,5 +18,8 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory suffix=".blade.php">src</directory>
+        </exclude>
     </coverage>
 </phpunit>
