@@ -2,6 +2,9 @@
 
 namespace Schrosis\BladeSQL\Tests\Unit;
 
+use Illuminate\Database\ConnectionInterface;
+use ReflectionMethod;
+use ReflectionProperty;
 use Schrosis\BladeSQL\BladeSQL\BladeSQLExecutor;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
 use Schrosis\BladeSQL\BladeSQL\UseCase\LikeEscapeAction;
@@ -36,5 +39,33 @@ class BladeSQLExecutorTest extends TestCase
 
         $executor = $this->app->make(BladeSQLExecutor::class);
         $executor->likeEscape('keyword');
+    }
+
+    public function testConnection()
+    {
+        $this->mock(Compiler::class);
+        $this->mock(LikeEscapeAction::class);
+        $executor = $this->app->make(BladeSQLExecutor::class);
+
+        $connectionProp = new ReflectionProperty(BladeSQLExecutor::class, 'connection');
+        $connectionProp->setAccessible(true);
+
+        $executor->setConnection(null);
+        $this->assertSame(null, $connectionProp->getValue($executor));
+
+        $executor->setConnection('mysql');
+        $this->assertSame('mysql', $connectionProp->getValue($executor));
+
+        $this->mock(ConnectionInterface::class);
+        $connection = $this->app->make(ConnectionInterface::class);
+        $executor->setConnection($connection);
+        $this->assertSame($connection, $connectionProp->getValue($executor));
+
+        $getConnection = new ReflectionMethod(BladeSQLExecutor::class, 'getConnection');
+        $getConnection->setAccessible(true);
+        $this->assertSame(
+            $connection,
+            $getConnection->invoke($executor)
+        );
     }
 }

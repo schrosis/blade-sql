@@ -2,6 +2,7 @@
 
 namespace Schrosis\BladeSQL\BladeSQL;
 
+use Illuminate\Database\ConnectionInterface;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Executor;
 use Schrosis\BladeSQL\BladeSQL\Domain\Entity\Query;
@@ -9,6 +10,13 @@ use Schrosis\BladeSQL\BladeSQL\UseCase\LikeEscapeAction;
 
 class BladeSQLExecutor implements Executor
 {
+    /**
+     * database connection name
+     *
+     * @var ConnectionInterface|string|null
+     */
+    private $connection;
+
     /**
      * BladeSQL compiler
      *
@@ -39,4 +47,23 @@ class BladeSQLExecutor implements Executor
         return $this->likeEscapeAction->__invoke($keyword);
     }
 
+    /**
+     * set connection
+     *
+     * @param ConnectionInterface|string|null $connection
+     * @return Executor
+     */
+    public function setConnection($connection): Executor
+    {
+        $this->connection = $connection;
+        return $this;
+    }
+
+    protected function getConnection(): ConnectionInterface
+    {
+        if ($this->connection instanceof ConnectionInterface) {
+            return $this->connection;
+        }
+        return DB::connection($this->connection);
+    }
 }
