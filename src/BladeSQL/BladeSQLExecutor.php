@@ -3,6 +3,7 @@
 namespace Schrosis\BladeSQL\BladeSQL;
 
 use Illuminate\Database\ConnectionInterface;
+use Illuminate\Support\Facades\DB;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Executor;
 use Schrosis\BladeSQL\BladeSQL\Domain\Entity\Query;
@@ -65,5 +66,13 @@ class BladeSQLExecutor implements Executor
             return $this->connection;
         }
         return DB::connection($this->connection);
+    }
+
+    public function select(string $blade, array $queryParams = []): SelectResultCollection
+    {
+        $query = $this->compile($blade, $queryParams);
+        $result = $this->getConnection()->select($query->getSQL(), $query->getParams());
+
+        return new SelectResultCollection($result);
     }
 }
