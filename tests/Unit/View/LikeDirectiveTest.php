@@ -30,11 +30,11 @@ class LikeDirectiveTest extends TestCase
         $this->mock(CompileWhereLikeAction::class)
             ->shouldReceive('__invoke')
             ->withArgs(['key', 'keyword', '', '%'])
-            ->andReturn(['bladesql_like_key_01', 'keyword']);
+            ->andReturn(['bladesql_like_key_01', 'keyword%']);
 
         $this->mock(NamedPlaceholderParameters::class)
             ->shouldReceive('setValue')
-            ->withArgs(['bladesql_like_key_01', 'keyword']);
+            ->withArgs(['bladesql_like_key_01', 'keyword%']);
         $params = $this->app->make(NamedPlaceholderParameters::class);
 
         $likestm = LikeDirective::compile($params, 'key', 'keyword', '', '%');
