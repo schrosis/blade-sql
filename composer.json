@@ -20,8 +20,8 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0"
-        "orchestra/testbench": "^5.0"
+        "orchestra/testbench": "^4.0",
+        "friendsofphp/php-cs-fixer": "^2.18"
     },
     "autoload-dev": {
         "psr-4": {
