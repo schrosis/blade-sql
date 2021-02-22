@@ -51,6 +51,7 @@ class BladeSQLServiceProvider extends ServiceProvider
             ? 'aliasComponent' : 'component';
 
         ['Blade', $aliasComponentMethod]('BladeSQL::components.trim', $prefix.'trim');
+        ['Blade', $aliasComponentMethod]('BladeSQL::components.where', $prefix.'where');
     }
 
     private function getPublishConfigPath()
