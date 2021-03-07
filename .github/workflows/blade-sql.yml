@@ -35,6 +35,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
+          extensions: pdo, pdo_sqlite
 
       - name: Install Dependencies
         run: |
