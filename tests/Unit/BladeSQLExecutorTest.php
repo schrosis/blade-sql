@@ -7,7 +7,9 @@ use ReflectionMethod;
 use ReflectionProperty;
 use Schrosis\BladeSQL\BladeSQL\BladeSQLExecutor;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
+use Schrosis\BladeSQL\BladeSQL\SelectResultCollection;
 use Schrosis\BladeSQL\BladeSQL\UseCase\LikeEscapeAction;
+use Schrosis\BladeSQL\BladeSQL\UseCase\SelectAction;
 use Schrosis\BladeSQL\Tests\TestCase;
 
 class BladeSQLExecutorTest extends TestCase
@@ -66,6 +68,19 @@ class BladeSQLExecutorTest extends TestCase
         $this->assertSame(
             $connection,
             $getConnection->invoke($executor)
+        );
+    }
+
+    public function testSelect()
+    {
+        $this->mock(Compiler::class)->expects('compile');
+        $this->mock(ConnectionInterface::class);
+        $this->mock(SelectAction::class)->expects('__invoke');
+        $executor = $this->app->make(BladeSQLExecutor::class);
+
+        $this->assertInstanceOf(
+            SelectResultCollection::class,
+            $executor->select('blade-name', [])
         );
     }
 }

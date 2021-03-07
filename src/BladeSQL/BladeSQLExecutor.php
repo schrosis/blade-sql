@@ -70,9 +70,12 @@ class BladeSQLExecutor implements Executor
 
     public function select(string $blade, array $queryParams = []): SelectResultCollection
     {
-        $query = $this->compile($blade, $queryParams);
-        $result = $this->getConnection()->select($query->getSQL(), $query->getParams());
+        /** @var SelectAction */
+        $selectAction = $this->container->make(SelectAction::class);
 
-        return new SelectResultCollection($result);
+        return $selectAction(
+            $this->getConnection(),
+            $this->compile($blade, $queryParams)
+        );
     }
 }
