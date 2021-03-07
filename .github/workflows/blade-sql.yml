@@ -1,0 +1,47 @@
+name: blade-sql-test
+
+on: push
+
+jobs:
+
+  cleanup-runs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rokroskar/workflow-run-cleanup-action@v0.2.2
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+  blade-sql-test:
+    name: 'BladeSQL {PHP: ${{ matrix.php-version }}, Laravel: ${{ matrix.laravel-version.framework }}}'
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['7.3', '8.0']
+        laravel-version:
+          - framework: '^6.0'
+            testbench: '^4.0'
+          - framework: '^7.0'
+            testbench: '^5.0'
+          - framework: '^8.0'
+            testbench: '^6.0'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+
+      - name: Install Dependencies
+        run: |
+          composer self-update -q
+          composer require laravel/framework:${{ matrix.laravel-version.framework }} orchestra/testbench:${{ matrix.laravel-version.testbench }} --no-update -q
+          composer install --no-interaction --no-scripts --no-suggest --prefer-dist -q
+
+      - name: Test
+        run: |
+          vendor/bin/phpunit
