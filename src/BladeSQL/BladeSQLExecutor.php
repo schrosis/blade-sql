@@ -2,12 +2,14 @@
 
 namespace Schrosis\BladeSQL\BladeSQL;
 
+use Illuminate\Container\Container;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Facades\DB;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Executor;
 use Schrosis\BladeSQL\BladeSQL\Domain\Entity\Query;
 use Schrosis\BladeSQL\BladeSQL\UseCase\LikeEscapeAction;
+use Schrosis\BladeSQL\BladeSQL\UseCase\SelectAction;
 
 class BladeSQLExecutor implements Executor
 {
@@ -19,33 +21,31 @@ class BladeSQLExecutor implements Executor
     private $connection;
 
     /**
-     * BladeSQL compiler
+     * service container
      *
-     * @var Compiler
+     * @var Container
      */
-    private $compiler;
+    private $container;
 
-    /**
-     * like escape action
-     *
-     * @var LikeEscapeAction
-     */
-    private $likeEscapeAction;
-
-    public function __construct(Compiler $compiler, LikeEscapeAction $likeEscapeAction)
+    public function __construct(Container $container)
     {
-        $this->compiler = $compiler;
-        $this->likeEscapeAction = $likeEscapeAction;
+        $this->container = $container;
     }
 
     public function compile(string $blade, array $queryParams = []): Query
     {
-        return $this->compiler->compile($blade, $queryParams);
+        /** @var Compiler */
+        $compiler = $this->container->make(Compiler::class);
+
+        return $compiler->compile($blade, $queryParams);
     }
 
     public function likeEscape(string $keyword): string
     {
-        return $this->likeEscapeAction->__invoke($keyword);
+        /** @var LikeEscapeAction */
+        $likeEscapeAction = $this->container->make(LikeEscapeAction::class);
+
+        return $likeEscapeAction($keyword);
     }
 
     /**
