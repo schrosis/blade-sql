@@ -8,6 +8,7 @@ use ReflectionProperty;
 use Schrosis\BladeSQL\BladeSQL\BladeSQLExecutor;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
 use Schrosis\BladeSQL\BladeSQL\SelectResultCollection;
+use Schrosis\BladeSQL\BladeSQL\UseCase\DeleteAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\LikeEscapeAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\SelectAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\UpdateAction;
@@ -93,5 +94,15 @@ class BladeSQLExecutorTest extends TestCase
         $executor = $this->app->make(BladeSQLExecutor::class);
 
         $this->assertIsInt($executor->update('blade-name', []));
+    }
+
+    public function testDelete()
+    {
+        $this->mock(Compiler::class)->expects('compile');
+        $this->mock(ConnectionInterface::class);
+        $this->mock(DeleteAction::class)->expects('__invoke');
+        $executor = $this->app->make(BladeSQLExecutor::class);
+
+        $this->assertIsInt($executor->delete('blade-name', []));
     }
 }
