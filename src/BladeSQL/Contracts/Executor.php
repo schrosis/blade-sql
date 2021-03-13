@@ -12,4 +12,5 @@ interface Executor
     public function setConnection($connectionName): Executor;
     public function select(string $blade, array $queryParams = []): SelectResultCollection;
     public function update(string $blade, array $queryParams = []): int;
+    public function delete(string $blade, array $queryParams = []): int;
 }

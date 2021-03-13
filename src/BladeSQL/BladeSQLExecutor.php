@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Executor;
 use Schrosis\BladeSQL\BladeSQL\Domain\Entity\Query;
+use Schrosis\BladeSQL\BladeSQL\UseCase\DeleteAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\LikeEscapeAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\SelectAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\UpdateAction;
@@ -86,6 +87,17 @@ class BladeSQLExecutor implements Executor
         $updateAction = $this->container->make(UpdateAction::class);
 
         return $updateAction(
+            $this->getConnection(),
+            $this->compile($blade, $queryParams)
+        );
+    }
+
+    public function delete(string $blade, array $queryParams = []): int
+    {
+        /** @var DeleteAction */
+        $deleteAction = $this->container->make(DeleteAction::class);
+
+        return $deleteAction(
             $this->getConnection(),
             $this->compile($blade, $queryParams)
         );
