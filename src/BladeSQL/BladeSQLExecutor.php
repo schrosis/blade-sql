@@ -10,6 +10,7 @@ use Schrosis\BladeSQL\BladeSQL\Contracts\Executor;
 use Schrosis\BladeSQL\BladeSQL\Domain\Entity\Query;
 use Schrosis\BladeSQL\BladeSQL\UseCase\LikeEscapeAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\SelectAction;
+use Schrosis\BladeSQL\BladeSQL\UseCase\UpdateAction;
 
 class BladeSQLExecutor implements Executor
 {
@@ -74,6 +75,17 @@ class BladeSQLExecutor implements Executor
         $selectAction = $this->container->make(SelectAction::class);
 
         return $selectAction(
+            $this->getConnection(),
+            $this->compile($blade, $queryParams)
+        );
+    }
+
+    public function update(string $blade, array $queryParams = []): int
+    {
+        /** @var UpdateAction */
+        $updateAction = $this->container->make(UpdateAction::class);
+
+        return $updateAction(
             $this->getConnection(),
             $this->compile($blade, $queryParams)
         );
