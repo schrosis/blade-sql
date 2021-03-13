@@ -1,3 +1,3 @@
-@trim(['suffixOverrides' => ','])
+@trim(['prefix' => 'SET', 'suffixOverrides' => ','])
 {!! $slot !!}
 @endtrim

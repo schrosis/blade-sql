@@ -11,4 +11,5 @@ interface Executor
     public function likeEscape(string $keyword): string;
     public function setConnection($connectionName): Executor;
     public function select(string $blade, array $queryParams = []): SelectResultCollection;
+    public function update(string $blade, array $queryParams = []): int;
 }
