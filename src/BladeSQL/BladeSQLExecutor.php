@@ -19,58 +19,32 @@ class BladeSQLExecutor implements Executor
     /**
      * database connection name
      *
-     * @var ConnectionInterface|string|null
+     * @var \Illuminate\Database\ConnectionInterface|string|null
      */
     private $connection;
 
     /**
      * service container
      *
-     * @var Container
+     * @var \Illuminate\Container\Container
      */
     private $container;
 
+    /**
+     * @param \Illuminate\Container\Container $container
+     */
     public function __construct(Container $container)
     {
         $this->container = $container;
     }
 
-    public function compile(string $blade, array $queryParams = []): Query
-    {
-        /** @var Compiler */
-        $compiler = $this->container->make(Compiler::class);
-
-        return $compiler->compile($blade, $queryParams);
-    }
-
-    public function likeEscape(string $keyword): string
-    {
-        /** @var LikeEscapeAction */
-        $likeEscapeAction = $this->container->make(LikeEscapeAction::class);
-
-        return $likeEscapeAction($keyword);
-    }
-
     /**
-     * set connection
+     * execute select query with blade
      *
-     * @param ConnectionInterface|string|null $connection
-     * @return Executor
+     * @param string $blade
+     * @param array $queryParams
+     * @return \Schrosis\BladeSQL\BladeSQL\SelectResultCollection
      */
-    public function setConnection($connection): Executor
-    {
-        $this->connection = $connection;
-        return $this;
-    }
-
-    protected function getConnection(): ConnectionInterface
-    {
-        if ($this->connection instanceof ConnectionInterface) {
-            return $this->connection;
-        }
-        return DB::connection($this->connection);
-    }
-
     public function select(string $blade, array $queryParams = []): SelectResultCollection
     {
         /** @var SelectAction */
@@ -82,6 +56,13 @@ class BladeSQLExecutor implements Executor
         );
     }
 
+    /**
+     * execute insert query with blade
+     *
+     * @param string $blade
+     * @param array $queryParams
+     * @return int
+     */
     public function insert(string $blade, array $queryParams = []): int
     {
         /** @var InsertAction */
@@ -93,6 +74,13 @@ class BladeSQLExecutor implements Executor
         );
     }
 
+    /**
+     * execute update query with blade
+     *
+     * @param string $blade
+     * @param array $queryParams
+     * @return int
+     */
     public function update(string $blade, array $queryParams = []): int
     {
         /** @var UpdateAction */
@@ -104,6 +92,13 @@ class BladeSQLExecutor implements Executor
         );
     }
 
+    /**
+     * execute delete query with blade
+     *
+     * @param string $blade
+     * @param array $queryParams
+     * @return int
+     */
     public function delete(string $blade, array $queryParams = []): int
     {
         /** @var DeleteAction */
@@ -113,5 +108,59 @@ class BladeSQLExecutor implements Executor
             $this->getConnection(),
             $this->compile($blade, $queryParams)
         );
+    }
+
+    /**
+     * compile the blade and return the SQL and query parameters
+     *
+     * @param string $blade
+     * @param array $queryParams
+     * @return \Schrosis\BladeSQL\BladeSQL\Domain\Entity\Query
+     */
+    public function compile(string $blade, array $queryParams = []): Query
+    {
+        /** @var Compiler */
+        $compiler = $this->container->make(Compiler::class);
+
+        return $compiler->compile($blade, $queryParams);
+    }
+
+    /**
+     * escape the string used in the like clause
+     *
+     * @param string $keyword
+     * @return string
+     */
+    public function likeEscape(string $keyword): string
+    {
+        /** @var LikeEscapeAction */
+        $likeEscapeAction = $this->container->make(LikeEscapeAction::class);
+
+        return $likeEscapeAction($keyword);
+    }
+
+    /**
+     * set the connection
+     *
+     * @param \Illuminate\Database\ConnectionInterface|string|null $connection
+     * @return \Schrosis\BladeSQL\BladeSQL\Contracts\Executor
+     */
+    public function setConnection($connection): Executor
+    {
+        $this->connection = $connection;
+        return $this;
+    }
+
+    /**
+     * get the connection
+     *
+     * @return \Illuminate\Database\ConnectionInterface
+     */
+    protected function getConnection(): ConnectionInterface
+    {
+        if ($this->connection instanceof ConnectionInterface) {
+            return $this->connection;
+        }
+        return DB::connection($this->connection);
     }
 }

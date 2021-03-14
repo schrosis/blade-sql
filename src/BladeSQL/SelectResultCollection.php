@@ -11,6 +11,12 @@ use ReflectionMethod;
 
 class SelectResultCollection extends Collection
 {
+    /**
+     * converting from stdClass to entity
+     *
+     * @param string $entityClass
+     * @return \Illuminate\Support\Collection
+     */
     public function entity(string $entityClass): Collection
     {
         if (! $this->hasFromArrayMethod($entityClass)) {
@@ -37,10 +43,10 @@ class SelectResultCollection extends Collection
     }
 
     /**
-     * map to model
+     * converting from stdClass to model
      *
      * @param string|Model $modelClass
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     public function model($model): Collection
     {

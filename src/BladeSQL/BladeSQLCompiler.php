@@ -11,20 +11,29 @@ use Schrosis\BladeSQL\BladeSQL\UseCase\ConvertNamedToQuestionAction;
 class BladeSQLCompiler implements Compiler
 {
     /**
-     * @var CompileAction
+     * @var \Schrosis\BladeSQL\BladeSQL\UseCase\CompileAction
      */
     protected $compileAction;
     /**
-     * @var ConvertNamedToQuestionAction
+     * @var \Schrosis\BladeSQL\BladeSQL\UseCase\ConvertNamedToQuestionAction
      */
     protected $convertAction;
 
-    public function __construct(CompileAction $compileAction, ConvertNamedToQuestionAction $convertAction)
-    {
+    public function __construct(
+        CompileAction $compileAction,
+        ConvertNamedToQuestionAction $convertAction
+    ) {
         $this->compileAction = $compileAction;
         $this->convertAction = $convertAction;
     }
 
+    /**
+     * compile the blade and return the SQL and query parameters
+     *
+     * @param string $blade
+     * @param array $params
+     * @return \Schrosis\BladeSQL\BladeSQL\Domain\Entity\Query
+     */
     public function compile(string $blade, array $params = []): Query
     {
         $namedPlaceholderQuery = $this->compileAction->__invoke(
