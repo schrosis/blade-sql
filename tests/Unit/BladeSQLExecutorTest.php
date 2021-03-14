@@ -9,6 +9,7 @@ use Schrosis\BladeSQL\BladeSQL\BladeSQLExecutor;
 use Schrosis\BladeSQL\BladeSQL\Contracts\Compiler;
 use Schrosis\BladeSQL\BladeSQL\SelectResultCollection;
 use Schrosis\BladeSQL\BladeSQL\UseCase\DeleteAction;
+use Schrosis\BladeSQL\BladeSQL\UseCase\InsertAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\LikeEscapeAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\SelectAction;
 use Schrosis\BladeSQL\BladeSQL\UseCase\UpdateAction;
@@ -84,6 +85,16 @@ class BladeSQLExecutorTest extends TestCase
             SelectResultCollection::class,
             $executor->select('blade-name', [])
         );
+    }
+
+    public function testInsert()
+    {
+        $this->mock(Compiler::class)->expects('compile');
+        $this->mock(ConnectionInterface::class);
+        $this->mock(InsertAction::class)->expects('__invoke');
+        $executor = $this->app->make(BladeSQLExecutor::class);
+
+        $this->assertIsInt($executor->insert('blade-name', []));
     }
 
     public function testUpdate()
