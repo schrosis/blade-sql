@@ -5,7 +5,7 @@
 
 ## Introduction
 
-blade-sql supports the generation and execution of SQL using Blade, Laravel's template engine
+blade-sql provides the generation and execution of SQL using Blade, Laravel's template engine
 
 When you want to write a complex SQL with more than 100 rows, isn't it hard to write it in the query builder?  
 Sometimes you want to write raw SQL for tuning purposes  
@@ -111,7 +111,7 @@ In addition to the basic features of blade, provides directives and components s
 
 Erase the leading `AND` or `OR` and prefix it with `WHERE`
 
-`@where` component is useful when using @if to create WHERE clauses
+`@where` component is useful when using `@if` to create WHERE clauses
 
 ```blade
 @where
@@ -172,19 +172,19 @@ IN(?, ?, ?)
 @LIKE(name)
 ```
 
-If `$name` is `'100% strawberry'`, then it will compile like this
+If `$name` is `'strawberry 100%'`, then it will compile like this
 
 ```
 LIKE ? ESCAPE '\'
 ```
 
-And `'100% strawberry'` will be escaped to `'100\% strawberry'`
+And `'strawberry 100%'` will be escaped to `'strawberry 100\%'`
 
 You can also easily add `_` and `%`
 
 ```blade
-{{ -- if $name is '100% strawberry' --}}
-@LIKE({name}%) {{-- '100\% strawberry%' --}}
-@LIKE(_{name}) {{-- '_100\% strawberry' --}}
-@LIKE(%{name}%) {{-- '%100\% strawberry%' --}}
+{{ -- if $name is 'strawberry 100%' --}}
+@LIKE({name}%) {{-- 'strawberry 100\%%' --}}
+@LIKE(_{name}) {{-- '_strawberry 100\%' --}}
+@LIKE(%{name}%) {{-- '%strawberry 100\%%' --}}
 ```
