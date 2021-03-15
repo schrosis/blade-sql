@@ -4,4 +4,5 @@
 .editorconfig export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
+.php_cs export-ignore
 phpunit.xml export-ignore
