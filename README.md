@@ -1,4 +1,7 @@
 # blade-sql
+[![License](https://poser.pugx.org/schrosis/blade-sql/license)](//packagist.org/packages/schrosis/blade-sql)
+[![Latest Stable Version](https://poser.pugx.org/schrosis/blade-sql/v)](//packagist.org/packages/schrosis/blade-sql)
+[![Latest Unstable Version](https://poser.pugx.org/schrosis/blade-sql/v/unstable)](//packagist.org/packages/schrosis/blade-sql)
 [![blade-sql-test](https://github.com/schrosis/blade-sql/actions/workflows/blade-sql.yml/badge.svg)](https://github.com/schrosis/blade-sql/actions/workflows/blade-sql.yml)
 
 - - -
@@ -25,9 +28,8 @@ composer require schrosis/blade-sql
 
 Laravel uses Package Auto-Discovery, so doesn't require you to manually add the ServiceProvider
 
-- - -
 
-If you don't use auto-discovery, add the `BladeSQLServiceProvider` to the providers array in `config/app.php`
+If you don't use auto-discovery, add the `BladeSQLServiceProvider` to the providers array in `config/app.php`  
 And if you use facade aliases, add `BladeSQL` to the aliases array
 
 ```php
