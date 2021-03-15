@@ -3,11 +3,19 @@
     "description": "Generating SQL with Blade",
     "type": "library",
     "license": "MIT",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "schrosis",
             "email": "54675948+schrosis@users.noreply.github.com"
         }
+    ],
+    "keywords": [
+        "laravel",
+        "blade",
+        "sql",
+        "query",
+        "blade-sql"
     ],
     "require": {
         "php": "^7.3|^8.0",
