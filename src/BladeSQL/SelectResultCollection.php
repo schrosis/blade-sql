@@ -59,6 +59,12 @@ class SelectResultCollection extends Collection
             $model = new $model;
         }
 
+        if (! ($model instanceof Model)) {
+            throw new InvalidArgumentException(
+                'Must be a fully qualified class name or instance of Model'
+            );
+        }
+
         return $this
             ->toBase()
             ->map(function($item) use ($model) {

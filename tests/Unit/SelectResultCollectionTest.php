@@ -97,4 +97,16 @@ class SelectResultCollectionTest extends TestCase
         ]]);
         $selectResult->model('something string');
     }
+
+    public function testThrowExceptionWhenNotModelInstace()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Must be a fully qualified class name or instance of Model');
+
+        $selectResult = new SelectResultCollection([[
+            'id' => 1,
+            'name' => 'sample data',
+        ]]);
+        $selectResult->model((object)['invalid arg']);
+    }
 }
