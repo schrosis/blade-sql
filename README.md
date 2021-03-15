@@ -128,6 +128,20 @@ $deletedRowNum = BladeSQL::delete('todos.delete', [
 ]);
 ```
 
+### Run on a specific connection
+
+If you want to use a connection other than the default one, call the `setConnection` method
+
+```php
+// Same string value as the argument of DB::connection()
+BladeSQL::setConnection('mysql::write')->update('users.change-password', $queryParams);
+// or
+// Accept ConnectionInterface
+$connection = DB::connection('mysql::write');
+BladeSQL::setConnection($connection)->update('users.change-password', $queryParams);
+```
+
+Also use it when doing a transaction
 ## Blade Directives and Components
 
 In addition to the basic features of blade, provides directives and components similar to Java's `mybatis`
