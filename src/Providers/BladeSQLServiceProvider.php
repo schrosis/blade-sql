@@ -14,8 +14,8 @@ use Schrosis\BladeSQL\BladeSQL\View\Directives\LikeDirective;
 
 class BladeSQLServiceProvider extends ServiceProvider
 {
-    public const CONFIG_PATH = __DIR__.'/../config/blade-sql.php';
-    public const VIEWS_DIR = __DIR__.'/../views';
+    public const CONFIG_PATH = __DIR__ . '/../config/blade-sql.php';
+    public const VIEWS_DIR = __DIR__ . '/../views';
 
     public $bindings = [
         Executor::class => BladeSQLExecutor::class,
@@ -25,7 +25,7 @@ class BladeSQLServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->setUpConfig();
-        $this->registerVIews();
+        $this->registerViews();
     }
 
     private function setUpConfig()
@@ -37,22 +37,31 @@ class BladeSQLServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(self::CONFIG_PATH, 'blade-sql');
     }
 
-    private function registerVIews()
+    private function registerViews()
     {
         $this->loadViewsFrom(self::VIEWS_DIR, 'BladeSQL');
         $this->loadViewsFrom(Config::get('blade-sql.dir'), 'sql');
 
         $prefix = Config::get('blade-sql.prefix');
+        $this->registerBladeDirectives($prefix);
+        $this->registerBladeComponent($prefix);
+    }
 
-        Blade::directive($prefix.InDirective::NAME, [InDirective::class, 'process']);
-        Blade::directive($prefix.LikeDirective::NAME, [LikeDirective::class, 'process']);
+    private function registerBladeDirectives(string $prefix)
+    {
+        Blade::directive($prefix . InDirective::NAME, [InDirective::class, 'process']);
+        Blade::directive($prefix . LikeDirective::NAME, [LikeDirective::class, 'process']);
+    }
 
+    private function registerBladeComponent(string $prefix)
+    {
         $aliasComponentMethod = version_compare(app()->version(), '7', '>=')
             ? 'aliasComponent' : 'component';
+        $aliasComponent = [Blade::class, $aliasComponentMethod];
 
-        ['Blade', $aliasComponentMethod]('BladeSQL::components.trim', $prefix.'trim');
-        ['Blade', $aliasComponentMethod]('BladeSQL::components.where', $prefix.'where');
-        ['Blade', $aliasComponentMethod]('BladeSQL::components.set', $prefix.'set');
+        $aliasComponent('BladeSQL::components.trim', $prefix . 'trim');
+        $aliasComponent('BladeSQL::components.where', $prefix . 'where');
+        $aliasComponent('BladeSQL::components.set', $prefix . 'set');
     }
 
     private function getPublishConfigPath()
