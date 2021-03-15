@@ -19,7 +19,30 @@ In such cases, blade-sql is useful!
 
 ## Installation
 
-TODO: I'll write about it when it's published
+```
+composer require schrosis/blade-sql
+```
+
+Laravel uses Package Auto-Discovery, so doesn't require you to manually add the ServiceProvider
+
+- - -
+
+If you don't use auto-discovery, add the `BladeSQLServiceProvider` to the providers array in `config/app.php`
+And if you use facade aliases, add `BladeSQL` to the aliases array
+
+```php
+Schrosis\BladeSQL\Providers\BladeSQLServiceProvider::class,
+```
+
+```php
+'BladeSQL' => Schrosis\BladeSQL\Facades\BladeSQL::class,
+```
+
+### Copy the package config to your local config with the publish command
+
+```
+php artisan vendor:publish --provider="Schrosis\BladeSQL\Providers\BladeSQLServiceProvider"
+```
 
 ## Usage
 
