@@ -36,7 +36,7 @@ Execute a query using the `BladeSQL` facade
 ```php
 use Schrosis\BladeSQL\Facades\BladeSQL;
 
-$usres = BladeSQL::select('users.select', ['id' => 1])->first();
+$user = BladeSQL::select('users.select', ['id' => 1])->first();
 // (object)[
 //     'id' => '1',
 //     'name' => 'examplename'
@@ -63,7 +63,7 @@ $entityCollection = $stdClassCollection
     ->entity(YourTodoEntity::class);
 ```
 
-The `entity` method argument expects a class that has a method to receive an array as its first argument, `fromArray`  
+The `entity` method argument expects a class with a method named `fromArray`  
 Otherwise, you can use the `Collection::map()`
 
 ```php
@@ -105,7 +105,7 @@ $deletedRowNum = BladeSQL::delete('todos.delete', [
 
 ## Blade Directives and Components
 
-In addition to the basic features of blade, provides directives and components similar to Java's mybatis
+In addition to the basic features of blade, provides directives and components similar to Java's `mybatis`
 
 ### @where
 
@@ -183,7 +183,7 @@ And `'strawberry 100%'` will be escaped to `'strawberry 100\%'`
 You can also easily add `_` and `%`
 
 ```blade
-{{ -- if $name is 'strawberry 100%' --}}
+{{-- if $name is 'strawberry 100%' --}}
 @LIKE({name}%) {{-- 'strawberry 100\%%' --}}
 @LIKE(_{name}) {{-- '_strawberry 100\%' --}}
 @LIKE(%{name}%) {{-- '%strawberry 100\%%' --}}
